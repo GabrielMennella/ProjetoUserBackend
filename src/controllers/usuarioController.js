@@ -1,5 +1,5 @@
 // Define a utilização do model usuario e a dependência http-status
-const Usuario = require('../models/usuario');
+const Usuario = require('../models/usuarios');
 const status = require('http-status');
  
 // Cria o método Insert, obtendo os dados da request
@@ -25,5 +25,29 @@ exports.Insert = (req, res, next) => {
             }
         })
         //catch = registra o que queremos que aconteca quando a Promise falhar
+        .catch(error => next(error));
+};
+ 
+exports.SelectAll = (req, res, next) => {
+    Usuario.findAll()
+        .then(usuario => {
+            if (usuario) {
+                res.status(status.OK).send(usuario);
+            }
+        })
+        .catch(error => next(error));
+}
+ 
+exports.SelectDetail = (req, res, next) => {
+    const id = req.params.id;
+ 
+    Usuario.findByPk(id)
+        .then(usuario => {
+            if (usuario) {
+                res.status(status.OK).send(usuario);
+            } else {
+                res.status(status.NOT_FOUND).send();
+            }
+        })
         .catch(error => next(error));
 };

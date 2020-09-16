@@ -3,7 +3,7 @@ module.exports = {
     development: {
         database: {
             host: 'localhost',
-            port: 3306,
+            port: 3003,
             name: 'db_usuario',
             dialect: 'mysql',
             user: 'root',
@@ -17,3 +17,4 @@ module.exports = {
         }
     }
 }
+
